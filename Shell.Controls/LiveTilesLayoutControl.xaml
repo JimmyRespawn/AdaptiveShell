@@ -1,71 +1,74 @@
 ﻿<UserControl
-    xmlns:tiles="using:NotificationsVisualizerLibrary"
-    xmlns:models="using:Shell.Models" 
     x:Class="Shell.Controls.LiveTilesLayoutControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Shell.Controls"
+    xmlns:common="using:Shell.Controls.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Shell.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Windows.UI.Xaml.Media"
-    xmlns:common="using:Shell.Controls.Common"
-    mc:Ignorable="d"
+    xmlns:models="using:Shell.Models"
+    xmlns:tiles="using:NotificationsVisualizerLibrary"
     d:DesignHeight="300"
-    d:DesignWidth="400">
-
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <ScrollViewer x:Name="RootScrollViewer">
             <local:GridViewExControl
                 x:Name="LiveTiles"
                 AllowDrop="True"
-                CanReorderItems="True"
                 CanDragItems="True"
+                CanReorderItems="True"
                 SelectionChanged="LiveTiles_SelectionChanged"
                 SelectionMode="Single">
                 <GridView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VariableSizedWrapGrid
                             x:Name="LiveTilesLayout"
-                            MaximumRowsOrColumns="8"
+                            HorizontalAlignment="Center"
+                            AllowDrop="True"
+                            HorizontalChildrenAlignment="Stretch"
                             ItemHeight="92"
                             ItemWidth="92"
-                            AllowDrop="True"
-                            Orientation="Horizontal"
-                            HorizontalAlignment="Center"
-                            HorizontalChildrenAlignment="Stretch"
-                            VerticalChildrenAlignment="Stretch"
                             Loaded="LiveTilesLayout_Loaded"
-                        />
+                            MaximumRowsOrColumns="8"
+                            Orientation="Horizontal"
+                            VerticalChildrenAlignment="Stretch" />
                     </ItemsPanelTemplate>
                 </GridView.ItemsPanel>
-
                 <GridView.ItemContainerStyle>
-                    <Style TargetType="GridViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                    <Style BasedOn="{StaticResource DefaultGridViewItemStyle}" TargetType="GridViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="VerticalContentAlignment" Value="Stretch" />
                     </Style>
                 </GridView.ItemContainerStyle>
-
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="models:TileModel">
                         <Grid
                             x:Name="LiveTile"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Tapped="LiveTile_Tapped"
                             CornerRadius="4"
-                            Drop="LiveTile_Drop">
+                            Drop="LiveTile_Drop"
+                            Tapped="LiveTile_Tapped">
                             <Grid.Background>
                                 <media:AcrylicBrush
-                                    BackgroundSource="HostBackdrop"
-                                    TintOpacity="0.95"
-                                    TintLuminosityOpacity="0.55"
                                     AlwaysUseFallback="True"
+                                    BackgroundSource="HostBackdrop"
+                                    FallbackColor="{ThemeResource SystemAccentColor}"
                                     TintColor="{ThemeResource SystemAccentColor}"
-                                    FallbackColor="{ThemeResource SystemAccentColor}" />
+                                    TintLuminosityOpacity="0.55"
+                                    TintOpacity="0.95" />
                             </Grid.Background>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*" />
@@ -73,24 +76,38 @@
 
                             <Grid
                                 x:Name="TileWrapper"
-                                Background="{x:Bind Logo}"
                                 HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch">
-                                <tiles:PreviewTile
-                                    Content="{x:Bind LiveTile}"
-                                    Loaded="LiveTile_Loaded"/>
+                                VerticalAlignment="Stretch"
+                                Background="{x:Bind Logo}">
+                                <tiles:PreviewTile Content="{x:Bind LiveTile}" Loaded="LiveTile_Loaded" />
                             </Grid>
 
                             <Grid.ContextFlyout>
                                 <MenuFlyout>
-                                    <MenuFlyoutItem Text="Size"/>
-                                    <MenuFlyoutSeparator/>
-                                    <MenuFlyoutItem x:Name="SmallOpt" Text="Small" Click="LiveTileContext_Click"/>
-                                    <MenuFlyoutItem x:Name="MediumOpt" Text="Medium" Click="LiveTileContext_Click"/>
-                                    <MenuFlyoutItem x:Name="WideOpt" Text="Wide" Click="LiveTileContext_Click"/>
-                                    <MenuFlyoutItem x:Name="LargeOpt" Text="Large" Click="LiveTileContext_Click"/>
-                                    <MenuFlyoutSeparator/>
-                                    <MenuFlyoutItem x:Name="UnPin" Icon="UnPin" Text="Unpin from Start" Click="UnPin_Click"/>
+                                    <MenuFlyoutItem Text="Size" />
+                                    <MenuFlyoutSeparator />
+                                    <MenuFlyoutItem
+                                        x:Name="SmallOpt"
+                                        Click="LiveTileContext_Click"
+                                        Text="Small" />
+                                    <MenuFlyoutItem
+                                        x:Name="MediumOpt"
+                                        Click="LiveTileContext_Click"
+                                        Text="Medium" />
+                                    <MenuFlyoutItem
+                                        x:Name="WideOpt"
+                                        Click="LiveTileContext_Click"
+                                        Text="Wide" />
+                                    <MenuFlyoutItem
+                                        x:Name="LargeOpt"
+                                        Click="LiveTileContext_Click"
+                                        Text="Large" />
+                                    <MenuFlyoutSeparator />
+                                    <MenuFlyoutItem
+                                        x:Name="UnPin"
+                                        Click="UnPin_Click"
+                                        Icon="UnPin"
+                                        Text="Unpin from Start" />
                                 </MenuFlyout>
                             </Grid.ContextFlyout>
                         </Grid>

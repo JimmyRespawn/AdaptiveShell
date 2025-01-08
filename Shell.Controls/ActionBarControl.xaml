@@ -14,7 +14,6 @@
     <UserControl.Foreground>
         <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" />
     </UserControl.Foreground>
-
     <Grid>
         <Grid.Background>
             <media:AcrylicBrush
@@ -36,7 +35,6 @@
             <ColumnDefinition Width="{x:Bind ActionBarItemWidth}" />
             <ColumnDefinition x:Name="RightPad" Width="1*" />
         </Grid.ColumnDefinitions>
-
         <Grid
             x:Name="BackBtn"
             Grid.Column="1"
@@ -46,7 +44,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="24"
-                Text="🔙" />
+                Text="👈" />
         </Grid>
         <Grid
             x:Name="StartBtn"

@@ -1,19 +1,19 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Shell.Controls"
-    xmlns:common="using:Shell.Controls.Common">
-
-    <common:VisibilityConverter x:Key="VisibilityConverter"/>
-
-    <!-- default style for the GridViewExControl control. It adds new group placeholders to the default GridView style.
-         New group placeholders are only visible if the GridViewExControl.AllowNewGroup property is true. -->
+    xmlns:common="using:Shell.Controls.Common"
+    xmlns:local="using:Shell.Controls">
+    <common:VisibilityConverter x:Key="VisibilityConverter" />
+    <!--
+        default style for the GridViewExControl control. It adds new group placeholders to the default GridView style.
+        New group placeholders are only visible if the GridViewExControl.AllowNewGroup property is true.
+    -->
     <Style TargetType="local:GridViewExControl">
         <Setter Property="Padding" Value="0,0,0,10" />
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="TabNavigation" Value="Once" />
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled" />
         <Setter Property="ScrollViewer.IsHorizontalRailEnabled" Value="False" />
         <Setter Property="ScrollViewer.VerticalScrollMode" Value="Enabled" />
@@ -41,35 +41,35 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:GridViewExControl">
-                    <Border BorderBrush="{TemplateBinding BorderBrush}"
-                            Background="{TemplateBinding Background}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
-                        <ScrollViewer x:Name="ScrollViewer"
-                                TabNavigation="{TemplateBinding TabNavigation}"
-                                HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
-                                HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                                IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}"
-                                VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
-                                VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
-                                IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}"
-                                IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
-                                IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
-                                ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}"
-                                IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
-                                BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}"
-                                AutomationProperties.AccessibilityView="Raw">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <ScrollViewer
+                            x:Name="ScrollViewer"
+                            AutomationProperties.AccessibilityView="Raw"
+                            BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}"
+                            HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                            HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                            IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                            IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
+                            IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}"
+                            IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
+                            IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}"
+                            TabNavigation="{TemplateBinding TabNavigation}"
+                            VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                            VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                            ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
                             <StackPanel Padding="{TemplateBinding Padding}">
-                                <local:NewGroupPlaceholderControl x:Name="NewGroupPlaceholderFirst" 
-                                        Visibility="{Binding AllowNewGroup, Converter={StaticResource VisibilityConverter}, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                <local:NewGroupPlaceholderControl x:Name="NewGroupPlaceholderFirst" Visibility="{Binding AllowNewGroup, Converter={StaticResource VisibilityConverter}, RelativeSource={RelativeSource TemplatedParent}}" />
                                 <ItemsPresenter
-                                    Header="{TemplateBinding Header}"
-                                    HeaderTemplate="{TemplateBinding HeaderTemplate}"
-                                    HeaderTransitions="{TemplateBinding HeaderTransitions}"
                                     Footer="{TemplateBinding Footer}"
                                     FooterTemplate="{TemplateBinding FooterTemplate}"
-                                    FooterTransitions="{TemplateBinding FooterTransitions}" />
-                                <local:NewGroupPlaceholderControl x:Name="NewGroupPlaceholderLast" 
-                                        Visibility="{Binding AllowNewGroup, Converter={StaticResource VisibilityConverter}, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                    FooterTransitions="{TemplateBinding FooterTransitions}"
+                                    Header="{TemplateBinding Header}"
+                                    HeaderTemplate="{TemplateBinding HeaderTemplate}"
+                                    HeaderTransitions="{TemplateBinding HeaderTransitions}" />
+                                <local:NewGroupPlaceholderControl x:Name="NewGroupPlaceholderLast" Visibility="{Binding AllowNewGroup, Converter={StaticResource VisibilityConverter}, RelativeSource={RelativeSource TemplatedParent}}" />
                             </StackPanel>
                         </ScrollViewer>
                     </Border>

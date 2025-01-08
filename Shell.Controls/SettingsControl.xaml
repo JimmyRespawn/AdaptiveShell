@@ -5,11 +5,23 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Shell.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="500"
     d:DesignWidth="1000"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}"
     mc:Ignorable="d">
-
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="SettingsSectionHeaderTextBlockStyle" TargetType="TextBlock">
+                <Style.Setters>
+                    <Setter Property="Margin" Value="0,28,0,4" />
+                </Style.Setters>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <SplitView
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
@@ -56,33 +68,21 @@
                     Margin="14,24,0,24"
                     Orientation="Horizontal">
                     <TextBlock Text="📱" />
-                    <TextBlock Margin="12,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Margin="24,0,0,0" VerticalAlignment="Center">
                         Adaptive Shell v<Run Text="{x:Bind AppVersion}" />
                     </TextBlock>
                 </StackPanel>
             </Grid>
         </SplitView.Pane>
-
         <StackPanel>
-            <StackPanel
-                Margin="10,0"
-                Padding="15"
-                Background="{ThemeResource SystemControlAcrylicElementBrush}"
-                CornerRadius="4">
-                <TextBlock FontWeight="Bold">
-                    You might need to restart Adaptive Shell for the changes to take effect!
-                </TextBlock>
-            </StackPanel>
-
             <Grid x:Name="SettingsView" Padding="12">
                 <!--<muxc:InfoBar
                     IsOpen="True"
                     Severity="Warning"
                     Title="Title"
                     Message="You might need to restart Adaptive Shell for the changes to take effect!" />-->
-
                 <StackPanel x:Name="Start">
-                    <TextBlock Style="{ThemeResource TitleTextBlockStyle}">Personalization</TextBlock>
+                    <TextBlock Style="{ThemeResource SettingsSectionHeaderTextBlockStyle}">Personalization</TextBlock>
                     <ToggleSwitch
                         x:Name="CornerRadius"
                         Header="Rounded corners"
@@ -97,26 +97,15 @@
                 </StackPanel>
                 <StackPanel x:Name="Advanced" Visibility="Collapsed">
                     <TextBlock Style="{ThemeResource TitleTextBlockStyle}">Features</TextBlock>
-                    <ToggleSwitch
-                        Header="Experimental features"
-                        IsEnabled="False"
-                        IsOn="True" />
-
+                    <ToggleSwitch Header="Experimental features" IsOn="True" />
                     <TextBlock Style="{ThemeResource TitleTextBlockStyle}">Development</TextBlock>
                     <ToggleSwitch
                         x:Name="EnableActionBar"
                         Header="ActionBar"
-                        IsEnabled="False"
                         IsOn="{x:Bind Settings.EnableActionBar, Mode=OneWay}"
                         Toggled="EnableActionBar_Toggled" />
-                    <ToggleSwitch
-                        Header="ActionBar always in mobile mode"
-                        IsEnabled="False"
-                        IsOn="True" />
-                    <ToggleSwitch
-                        Header="StatusBar"
-                        IsEnabled="False"
-                        IsOn="{x:Bind Settings.EnableStatusBar, Mode=OneWay}" />
+                    <ToggleSwitch Header="ActionBar always in mobile mode" IsOn="True" />
+                    <ToggleSwitch Header="StatusBar" IsOn="{x:Bind Settings.EnableStatusBar, Mode=OneWay}" />
                 </StackPanel>
                 <StackPanel x:Name="About" Visibility="Collapsed">
                     <TextBlock TextWrapping="Wrap">

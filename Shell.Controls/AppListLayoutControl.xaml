@@ -1,46 +1,44 @@
 ﻿<UserControl
-    xmlns:controls="using:NotificationsVisualizerLibrary.Controls"
     x:Class="Shell.Controls.AppListLayoutControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Shell.Controls"
-    xmlns:models="using:Shell.Models" 
+    xmlns:controls="using:NotificationsVisualizerLibrary.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Shell.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Shell.Models"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400">
-
+    d:DesignWidth="400"
+    mc:Ignorable="d">
     <UserControl.Resources>
-        <CollectionViewSource x:Key="AppsSource" x:Name="AppsSource" Source="{Binding AppsList}" IsSourceGrouped="True" />
+        <CollectionViewSource
+            x:Key="AppsSource"
+            x:Name="AppsSource"
+            IsSourceGrouped="True"
+            Source="{Binding AppsList}" />
     </UserControl.Resources>
-
     <Grid>
         <ScrollViewer x:Name="RootScrollViewer">
             <ListView
                 x:Name="AppsList"
+                IsItemClickEnabled="True"
                 ItemsSource="{Binding Source={StaticResource AppsSource}}"
-                SelectionMode="None"
-                IsItemClickEnabled="True">
+                SelectionMode="None">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <toolkit:WrapPanel
-                            Orientation="Vertical"
-                            Loaded="StackPanel_Loaded"/>
+                        <toolkit:WrapPanel Loaded="StackPanel_Loaded" Orientation="Vertical" />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
-
                 <ListView.GroupStyle>
                     <GroupStyle>
                         <GroupStyle.HeaderTemplate>
                             <DataTemplate>
                                 <Grid Margin="12,0,0,8">
                                     <TextBlock
-                                        Text="{Binding Key}"
                                         FontSize="22"
-                                        Foreground="{ThemeResource SystemAltHighColor}"
-                                        FontWeight="Bold"/>
+                                        FontWeight="Bold"
+                                        Text="{Binding Key}" />
                                 </Grid>
                             </DataTemplate>
                         </GroupStyle.HeaderTemplate>
@@ -52,19 +50,19 @@
                         <Grid
                             x:Name="AppsListItem"
                             Margin="0,0,0,5"
-                            Tapped="AppsListItem_Tapped"
-                            Loaded="AppsListItem_Loaded">
+                            Loaded="AppsListItem_Loaded"
+                            Tapped="AppsListItem_Tapped">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
 
                             <Grid
                                 Grid.Column="0"
-                                Background="{ThemeResource SystemAccentColor}"
                                 Width="58"
                                 Height="58"
                                 Margin="0,0,8,0"
+                                Background="{ThemeResource SystemAccentColor}"
                                 CornerRadius="4">
                                 <Grid
                                     Width="58"
@@ -72,24 +70,24 @@
                                     Background="{x:Bind Logo}" />
                             </Grid>
 
-                            <StackPanel
-                                Grid.Column="1"
-                                VerticalAlignment="Center">
-                                <TextBlock
-                                    FontSize="18"
-                                    Text="{x:Bind DisplayName}"
-                                    Foreground="{ThemeResource SystemAltHighColor}"/>
-                                <TextBlock
-                                    FontSize="12"
-                                    Text="{x:Bind Publisher}"
-                                    Foreground="{ThemeResource SystemAltHighColor}"/>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock FontSize="18" Text="{x:Bind DisplayName}" />
+                                <TextBlock FontSize="12" Text="{x:Bind Publisher}" />
                             </StackPanel>
 
                             <Grid.ContextFlyout>
                                 <MenuFlyout>
-                                    <!-- TODO: replace with "Unpin from Start" if it's pinned already -->
-                                    <MenuFlyoutItem x:Name="PinToStartBtn" Text="Pin to Start" Icon="Pin" Click="PinToStartBtn_Click"/>
-                                    <MenuFlyoutItem x:Name="UninstallBtn" Text="Uninstall" Icon="Delete" IsEnabled="False"/>
+                                    <!--  TODO: replace with "Unpin from Start" if it's pinned already  -->
+                                    <MenuFlyoutItem
+                                        x:Name="PinToStartBtn"
+                                        Click="PinToStartBtn_Click"
+                                        Icon="Pin"
+                                        Text="Pin to Start" />
+                                    <MenuFlyoutItem
+                                        x:Name="UninstallBtn"
+                                        Icon="Delete"
+                                        IsEnabled="False"
+                                        Text="Uninstall" />
                                 </MenuFlyout>
                             </Grid.ContextFlyout>
                         </Grid>
