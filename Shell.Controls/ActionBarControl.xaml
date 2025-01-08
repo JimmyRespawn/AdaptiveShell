@@ -1,0 +1,72 @@
+﻿<UserControl
+    x:Class="Shell.Controls.ActionBarControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Shell.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:media="using:Windows.UI.Xaml.Media"
+    d:DesignHeight="50"
+    d:DesignWidth="400"
+    Background="Transparent"
+    SizeChanged="Control_SizeChanged"
+    mc:Ignorable="d">
+    <UserControl.Foreground>
+        <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" />
+    </UserControl.Foreground>
+
+    <Grid>
+        <Grid.Background>
+            <media:AcrylicBrush
+                BackgroundSource="HostBackdrop"
+                FallbackColor="{ThemeResource SystemAccentColor}"
+                TintColor="{ThemeResource SystemAccentColor}"
+                TintLuminosityOpacity="1"
+                TintOpacity="0.25" />
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{x:Bind ActionBarItemHeight}" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="LeftPad" Width="1*" />
+            <ColumnDefinition Width="{x:Bind ActionBarItemWidth}" />
+            <ColumnDefinition Width="25" />
+            <ColumnDefinition Width="{x:Bind ActionBarItemWidth}" />
+            <ColumnDefinition Width="25" />
+            <ColumnDefinition Width="{x:Bind ActionBarItemWidth}" />
+            <ColumnDefinition x:Name="RightPad" Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid
+            x:Name="BackBtn"
+            Grid.Column="1"
+            ContextRequested="BackBtn_ContextRequested"
+            Tapped="BackBtn_Tapped">
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="24"
+                Text="🔙" />
+        </Grid>
+        <Grid
+            x:Name="StartBtn"
+            Grid.Column="3"
+            Tapped="StartBtn_Tapped">
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="24"
+                Text="🪟" />
+        </Grid>
+        <Grid
+            x:Name="SearchBtn"
+            Grid.Column="5"
+            Tapped="SearchBtn_Tapped">
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="24"
+                Text="🔎" />
+        </Grid>
+    </Grid>
+</UserControl>
